@@ -1,9 +1,9 @@
-import 'dart:async';
-
 import 'package:crud_application/screens/auth/login_screen.dart';
 import 'package:crud_application/screens/auth/register_screen.dart';
+import 'package:crud_application/screens/donor/add_donor_data.dart';
 import 'package:crud_application/screens/donor/home_screen.dart';
 import 'package:crud_application/screens/splash_screen.dart';
+import 'package:crud_application/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -30,12 +30,21 @@ class _DonorAppState extends State<DonorApp> {
           //     style: ButtonStyle(textStyle: MaterialStateProperty<TextStyle>)),
           primarySwatch: Colors.red,
           primaryColor: Colors.orangeAccent),
-      home: SplashScreen(),
+      home: StreamBuilder(
+        stream: AuthService().firebaseAuth.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const HomeScreen();
+          }
+          return RegisterScreen();
+        },
+      ),
       routes: {
         SplashScreen.id: (context) => SplashScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         RegisterScreen.id: (context) => RegisterScreen(),
         HomeScreen.id: (context) => HomeScreen(),
+        AddDonorData.id: (context) => AddDonorData(),
       },
     );
   }

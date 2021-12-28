@@ -53,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               elevation: 5.0,
               child: ListView(
                 shrinkWrap: true,
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 30),
                 children: [
                   TextField(
                     controller: usernameController,
@@ -133,7 +133,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fontSize: 21,
                             fontWeight: FontWeight.bold))
                   ])),
-            ))
+            )),
+            SizedBox(
+              height: 40,
+            ),
           ],
         ),
       ),
